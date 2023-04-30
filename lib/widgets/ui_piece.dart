@@ -13,12 +13,12 @@ class UIPiece extends StatelessWidget {
   final Piece piece;
   final double size;
 
-  UIPiece({
+  const UIPiece({Key? key, 
     required this.squareName,
     required this.squareColor,
     required this.piece,
     required this.size,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,14 @@ class UIPiece extends StatelessWidget {
     return Draggable<HalfMove>(
       data: HalfMove(squareName, Option.of(piece)),
       dragAnchorStrategy: pointerDragAnchorStrategy,
-      child: pieceWidget,
       feedback: FractionalTranslation(
-          translation: const Offset(-0.5, -0.5), child: pieceWidget),
+      translation: const Offset(-0.5, -0.5), child: pieceWidget),
       childWhenDragging: Container(
-                  color: Color.fromRGBO(131, 175, 35, .3),
-                  height: size,
-                  width: size,
-                ),
+        color: board.selectionHighlightColor,
+        height: size,
+        width: size,
+      ),
+      child: pieceWidget,
     );
   }
 
@@ -67,7 +67,7 @@ class UIPiece extends StatelessWidget {
     } else if (piece == Piece.BLACK_PAWN) {
       return BlackPawn(size: size);
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }
