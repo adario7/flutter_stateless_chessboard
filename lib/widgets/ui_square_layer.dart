@@ -27,6 +27,7 @@ class _UISquareLayerState extends State<UISquareLayer> {
           square: it,
           onClick: (m) => handleClick(board, m),
           onDrop: (hf) => handleDrop(board, hf),
+          setClickMove: setClickMove,
           highlight: getHighlight(board, it)
         ))
         .toList(growable: false),
@@ -34,14 +35,21 @@ class _UISquareLayerState extends State<UISquareLayer> {
   }
 
   Color? getHighlight(Board board, Square square) {
-    return clickMove
-      .filter((t) => t.square == square.name)
-      .map((_) => board.selectionHighlightColor)
-      .alt(() => Option.fromPredicate(
-          board.lastMoveHighlightColor,
-          (_) => board.lastMove.contains(square.name),
-        ))
-      .toNullable();
+    List<Option<Color>> queue = [
+      clickMove.filterMap((click) => Option.fromPredicate(
+        board.selectionHighlightColor,
+        (_) => click.square == square.name
+      )),
+      clickMove.filterMap((click) => Option.fromPredicate(
+        board.selectionDestColor,
+        (_) => (board.dests[click.square] ?? []).contains(square.name)
+      )),
+      Option.fromPredicate(
+        board.lastMoveHighlightColor,
+        (_) => board.lastMove.contains(square.name),
+      )
+    ];
+    return queue.reduce((a, b) => a.alt(() => b)).toNullable();
   }
 
   void handleDrop(Board board, ShortMove move) {
@@ -52,7 +60,7 @@ class _UISquareLayerState extends State<UISquareLayer> {
 
   void handleClick(Board board, HalfMove halfMove) {
     clickMove.match(
-      () => setClickMove(halfMove),
+      () => setClickMove(Option.of(halfMove)),
       (t) {
         final sameSquare = t.square == halfMove.square;
         final sameColorPiece = t.piece
@@ -62,7 +70,7 @@ class _UISquareLayerState extends State<UISquareLayer> {
         if (sameSquare) {
           clearClickMove();
         } else if (sameColorPiece) {
-          setClickMove(halfMove);
+          setClickMove(Option.of(halfMove));
         } else {
           board.makeMove(ShortMove(
             from: t.square,
@@ -74,15 +82,11 @@ class _UISquareLayerState extends State<UISquareLayer> {
     );
   }
 
-  void setClickMove(HalfMove halfMove) {
+  void setClickMove(Option<HalfMove> halfMove) {
     setState(() {
-      clickMove = Option.of(halfMove).flatMap((t) => t.piece.map((_) => t));
+      clickMove = halfMove.filter((t) => t.piece.isSome());
     });
   }
 
-  void clearClickMove() {
-    setState(() {
-      clickMove = Option.none();
-    });
-  }
+  void clearClickMove() => setClickMove(Option.none());
 }

@@ -27,6 +27,7 @@ class Board {
   final Option<BuildSquare> buildSquare;
   final Option<BuildCustomPiece> buildCustomPiece;
   final Color selectionHighlightColor;
+  final Color selectionDestColor;
   final Color lastMoveHighlightColor;
   final List<String> lastMove;
   final Dests dests;
@@ -44,6 +45,7 @@ class Board {
     BuildSquare? buildSquare,
     BuildCustomPiece? buildCustomPiece,
     required this.selectionHighlightColor,
+    required this.selectionDestColor,
     required this.lastMoveHighlightColor,
     required this.lastMove,
   })  : _onMove = onMove,

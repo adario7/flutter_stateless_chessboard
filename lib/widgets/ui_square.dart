@@ -10,14 +10,16 @@ import 'package:provider/provider.dart';
 
 class UISquare extends StatelessWidget {
   final Square square;
+  final Color? highlight;
   final void Function(ShortMove move) onDrop;
   final void Function(HalfMove move) onClick;
-  final Color? highlight;
+  final void Function(Option<HalfMove> move) setClickMove;
 
   UISquare({
     required this.square,
     required this.onClick,
     required this.onDrop,
+    required this.setClickMove,
     this.highlight,
   });
 
@@ -62,14 +64,15 @@ class UISquare extends StatelessWidget {
                     width: square.size,
                   ),
                 board.buildCustomPiece
-                    .flatMap((t) => Option.fromNullable(t(square)))
-                    .alt(() => square.piece.map((t) => UIPiece(
-                          squareName: square.name,
-                          squareColor: square.color,
-                          piece: t,
-                          size: square.size,
-                        )))
-                    .getOrElse(() => SizedBox())
+                  .flatMap((t) => Option.fromNullable(t(square)))
+                  .alt(() => square.piece.map((t) => UIPiece(
+                    squareName: square.name,
+                    squareColor: square.color,
+                    piece: t,
+                    size: square.size,
+                    setClickMove: setClickMove,
+                  )))
+                  .getOrElse(() => const SizedBox())
               ],
             ),
           ),

@@ -12,12 +12,14 @@ class UIPiece extends StatelessWidget {
   final BoardColor squareColor;
   final Piece piece;
   final double size;
+  final void Function(Option<HalfMove> move) setClickMove;
 
   const UIPiece({Key? key, 
     required this.squareName,
     required this.squareColor,
     required this.piece,
     required this.size,
+    required this.setClickMove,
   }) : super(key: key);
 
   @override
@@ -31,9 +33,14 @@ class UIPiece extends StatelessWidget {
       data: HalfMove(squareName, Option.of(piece)),
       dragAnchorStrategy: pointerDragAnchorStrategy,
       feedback: FractionalTranslation(
-      translation: const Offset(-0.5, -0.5), child: pieceWidget),
+        translation: const Offset(-0.5, -0.5),
+        child: pieceWidget
+      ),
+      onDragStarted: () {
+        setClickMove(Option.of(HalfMove(squareName, Option.of(piece))));
+      },
       childWhenDragging: Container(
-        color: board.selectionHighlightColor,
+        color: Colors.transparent,
         height: size,
         width: size,
       ),
