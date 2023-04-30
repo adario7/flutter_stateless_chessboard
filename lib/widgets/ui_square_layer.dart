@@ -1,7 +1,9 @@
+import 'package:chess/chess.dart' show Chess;
 import 'package:flutter/material.dart';
 import 'package:flutter_stateless_chessboard/models/board.dart';
 import 'package:flutter_stateless_chessboard/models/half_move.dart';
 import 'package:flutter_stateless_chessboard/models/piece.dart';
+import 'package:flutter_stateless_chessboard/models/piece_type.dart';
 import 'package:flutter_stateless_chessboard/models/short_move.dart';
 import 'package:flutter_stateless_chessboard/widgets/ui_square.dart';
 import 'package:fpdart/fpdart.dart' show Option;
@@ -47,6 +49,15 @@ class _UISquareLayerState extends State<UISquareLayer> {
       Option.fromPredicate(
         board.lastMoveHighlightColor,
         (_) => board.lastMove.contains(square.name),
+      ),
+      Option.fromPredicate(
+        board.checkColor,
+        (_)  {
+          final pc = square.piece.toNullable();
+          if (pc?.type != PieceType.KING) return false; // don't calculate fromFEN when not needed
+          final chess = Chess.fromFEN(board.fen);
+          return pc?.color.value == chess.turn.index && chess.in_check;
+        }
       )
     ];
     return queue.reduce((a, b) => a.alt(() => b)).toNullable();

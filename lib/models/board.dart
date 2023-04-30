@@ -29,6 +29,7 @@ class Board {
   final Color selectionHighlightColor;
   final Color selectionDestColor;
   final Color lastMoveHighlightColor;
+  final Color checkColor;
   final List<String> lastMove;
   final Dests dests;
 
@@ -47,6 +48,7 @@ class Board {
     required this.selectionHighlightColor,
     required this.selectionDestColor,
     required this.lastMoveHighlightColor,
+    required this.checkColor,
     required this.lastMove,
   })  : _onMove = onMove,
         _onPromote = onPromote,
