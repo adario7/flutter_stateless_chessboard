@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import '../models/square.dart';
 
 class UISquareLayer extends StatefulWidget {
+  const UISquareLayer({Key? key}) : super(key: key);
+
   @override
   State<UISquareLayer> createState() => _UISquareLayerState();
 }

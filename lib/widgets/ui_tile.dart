@@ -8,23 +8,22 @@ class UITile extends StatelessWidget {
   final BoardColor color;
   final double size;
 
-  UITile({
+  const UITile({Key? key, 
     required this.color,
     required this.size,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final board = Provider.of<Board>(context);
-
     return board.buildSquare
-        .flatMap((t) => Option.fromNullable(t(color, size)))
-        .getOrElse(() => Container(
-              color: color == BoardColor.WHITE
-                  ? board.lightSquareColor
-                  : board.darkSquareColor,
-              height: size,
-              width: size,
-            ));
+      .flatMap((t) => Option.fromNullable(t(color, size)))
+      .getOrElse(() => Container(
+        color: color == BoardColor.WHITE
+            ? board.lightSquareColor
+            : board.darkSquareColor,
+        height: size,
+        width: size,
+      ));
   }
 }

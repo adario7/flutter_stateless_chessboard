@@ -14,8 +14,8 @@ class Square extends Coordinate {
     required this.name,
     required this.piece,
   }) : super(
-          orientation: board.orientation,
-          square: name,
-          size: board.squareSize,
-        );
+    orientation: board.orientation,
+    square: name,
+    size: board.squareSize,
+  );
 }

@@ -26,8 +26,8 @@ class UIPiece extends StatelessWidget {
   Widget build(BuildContext context) {
     final board = Provider.of<Board>(context);
     final pieceWidget = board.buildPiece
-        .flatMap((f) => Option.fromNullable(f(piece, size)))
-        .getOrElse(() => _buildPiece(piece, size));
+      .flatMap((f) => Option.fromNullable(f(piece, size)))
+      .getOrElse(() => _buildPiece(piece, size));
 
     return Draggable<HalfMove>(
       data: HalfMove(squareName, Option.of(piece)),

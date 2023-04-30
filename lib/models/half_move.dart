@@ -8,6 +8,7 @@ class HalfMove {
 
   HalfMove(this.square, this.piece);
 
+  @override
   String toString() {
     return "$square::$piece";
   }

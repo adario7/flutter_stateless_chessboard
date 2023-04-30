@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class Chessboard extends StatefulWidget {
   final Board board;
 
-  Chessboard({
+  Chessboard({Key? key, 
     required String fen,
     required double size,
     BoardColor orientation = BoardColor.WHITE,
@@ -44,7 +44,7 @@ class Chessboard extends StatefulWidget {
     selectionHighlightColor: selectionHighlightColor,
     selectionDestColor: selectionDestColor,
     checkColor: checkColor,
-  );
+  ), super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ChessboardState();
@@ -55,15 +55,11 @@ class _ChessboardState extends State<Chessboard> {
   Widget build(BuildContext context) {
     return Provider.value(
       value: widget.board,
-      child: Container(
+      child: SizedBox(
         width: widget.board.size,
         height: widget.board.size,
-        child: Stack(
-          children: [
-            UISquareLayer(),
-          ],
-        ),
-      ),
+        child: UISquareLayer(),
+      )
     );
   }
 }

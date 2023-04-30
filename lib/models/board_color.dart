@@ -3,11 +3,13 @@ class BoardColor {
 
   const BoardColor._value(this.value);
 
-  static const BoardColor WHITE = const BoardColor._value(0);
-  static const BoardColor BLACK = const BoardColor._value(1);
+  static const BoardColor WHITE = BoardColor._value(0);
+  static const BoardColor BLACK = BoardColor._value(1);
 
+  @override
   int get hashCode => value.hashCode;
 
+  @override
   String toString() => (this == WHITE) ? 'w' : 'b';
 
   @override

@@ -15,13 +15,13 @@ class UISquare extends StatelessWidget {
   final void Function(HalfMove move) onClick;
   final void Function(Option<HalfMove> move) setClickMove;
 
-  UISquare({
+  const UISquare({Key? key, 
     required this.square,
     required this.onClick,
     required this.onDrop,
     required this.setClickMove,
     this.highlight,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
