@@ -13,6 +13,7 @@ typedef Moved = void Function(ShortMove move);
 typedef BuildPiece = Widget? Function(Piece piece, double size);
 typedef BuildSquare = Widget? Function(BoardColor color, double size);
 typedef BuildCustomPiece = Widget? Function(Square square);
+typedef Dests = Map<String, List<String>>;
 
 class Board {
   final String fen;
@@ -28,6 +29,7 @@ class Board {
   final Color selectionHighlightColor;
   final Color lastMoveHighlightColor;
   final List<String> lastMove;
+  final Dests dests;
 
   Board({
     required this.fen,
@@ -35,6 +37,7 @@ class Board {
     required this.orientation,
     required this.lightSquareColor,
     required this.darkSquareColor,
+    required this.dests,
     required Moved onMove,
     required Promoted onPromote,
     BuildPiece? buildPiece,
