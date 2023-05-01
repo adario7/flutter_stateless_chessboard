@@ -1,9 +1,13 @@
 library flutter_chessboard;
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stateless_chessboard/models/board.dart';
+import 'package:flutter_stateless_chessboard/models/board_arrow.dart';
 import 'package:flutter_stateless_chessboard/models/board_color.dart';
 import 'package:flutter_stateless_chessboard/utils.dart';
+import 'package:flutter_stateless_chessboard/widgets/arrow_painter.dart';
 import 'package:flutter_stateless_chessboard/widgets/ui_square_layer.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +31,7 @@ class Chessboard extends StatefulWidget {
     Color selectionDestColor = const Color.fromRGBO(50, 50, 200, .2),
     Color checkColor = const Color.fromRGBO(230, 20, 20, .4),
     List<String> lastMove = const [],
+    List<BoardArrow> arrows = const [],
   }) : board = Board(
     fen: fen,
     size: size,
@@ -44,6 +49,7 @@ class Chessboard extends StatefulWidget {
     selectionHighlightColor: selectionHighlightColor,
     selectionDestColor: selectionDestColor,
     checkColor: checkColor,
+    arrows: arrows,
   ), super(key: key);
 
   @override
@@ -58,8 +64,23 @@ class _ChessboardState extends State<Chessboard> {
       child: SizedBox(
         width: widget.board.size,
         height: widget.board.size,
-        child: UISquareLayer(),
-      )
+        child: Stack(
+            alignment: AlignmentDirectional.topStart,
+            textDirection: TextDirection.ltr,
+            children: [
+              UISquareLayer(),
+              if (widget.board.arrows.isNotEmpty)
+                IgnorePointer(
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: CustomPaint(
+                      child: Container(),
+                      painter: ArrowPainter(widget.board.arrows, widget.board.orientation),
+                    ),
+                  ),
+                ),
+            ]),
+      ),
     );
   }
 }

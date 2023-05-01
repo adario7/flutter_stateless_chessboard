@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stateless_chessboard/models/board_arrow.dart';
 import 'package:flutter_stateless_chessboard/models/piece.dart';
 import 'package:flutter_stateless_chessboard/utils.dart' as utils;
 import 'package:chess/chess.dart' show Chess;
@@ -33,6 +34,7 @@ class Board {
   final Color checkColor;
   final List<String> lastMove;
   final Dests dests;
+  final List<BoardArrow> arrows;
 
   Board({
     required fen,
@@ -51,6 +53,7 @@ class Board {
     required this.lastMoveHighlightColor,
     required this.checkColor,
     required this.lastMove,
+    required this.arrows,
   })  : position = Chess.fromFEN(fen),
         _onMove = onMove,
         _onPromote = onPromote,
