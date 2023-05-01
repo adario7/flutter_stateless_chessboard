@@ -20,7 +20,9 @@ class ArrowPainter extends CustomPainter {
     var blockSize = size.width / 8;
     var halfBlockSize = size.width / 16;
 
-    final baseArrowLengthProportion = 0.6;
+    final arrowBaseWidth = blockSize * .3;
+    final arrowTipWidth = blockSize * .35;
+    final arrowTipHeight = blockSize * .6;
 
     for (var arrow in arrows) {
       var startFile = files.indexOf(arrow.from[0]);
@@ -52,25 +54,21 @@ class ArrowPainter extends CustomPainter {
           ((effectiveColumnEnd + 1) * blockSize) - halfBlockSize,
           ((effectiveRowEnd + 1) * blockSize) - halfBlockSize);
 
-      var yDist = baseArrowLengthProportion * (endOffset.dy - startOffset.dy);
-      var xDist = baseArrowLengthProportion * (endOffset.dx - startOffset.dx);
+      var arrowLen = (endOffset - startOffset).distance;
+      var baseLenProportion = 1 - arrowTipHeight / arrowLen;
+      var baseDist = (endOffset - startOffset) * baseLenProportion;
 
       var paint = Paint()
-        ..strokeWidth = halfBlockSize * baseArrowLengthProportion
+        ..strokeWidth = baseLenProportion * arrowBaseWidth
         ..color = arrow.color;
 
-      canvas.drawLine(startOffset,
-          Offset(startOffset.dx + xDist, startOffset.dy + yDist), paint);
+      canvas.drawLine(startOffset, startOffset + baseDist, paint);
 
-      var slope =
-          (endOffset.dy - startOffset.dy) / (endOffset.dx - startOffset.dx);
+      var slope = (endOffset.dy - startOffset.dy) / (endOffset.dx - startOffset.dx);
 
       var newLineSlope = -1 / slope;
 
-      var points = _getNewPoints(
-          Offset(startOffset.dx + xDist, startOffset.dy + yDist),
-          newLineSlope,
-          halfBlockSize);
+      var points = _getNewPoints(startOffset + baseDist, newLineSlope, arrowTipWidth);
       var newPoint1 = points[0];
       var newPoint2 = points[1];
 
