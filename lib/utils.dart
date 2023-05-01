@@ -9,12 +9,11 @@ import 'models/short_move.dart';
 import 'models/square.dart';
 
 List<Square> getSquares(Board board) {
-  final chess = ch.Chess.fromFEN(board.fen);
   return ch.Chess.SQUARES.keys.map((squareName) {
     return Square(
       board: board,
       name: squareName,
-      piece: Option.fromNullable(chess.get(squareName)).map(
+      piece: Option.fromNullable(board.position.get(squareName)).map(
         (t) => Piece(
           t.color == ch.Color.WHITE ? BoardColor.WHITE : BoardColor.BLACK,
           PieceType.fromString(t.type.toString()),
@@ -24,9 +23,7 @@ List<Square> getSquares(Board board) {
   }).toList(growable: false);
 }
 
-bool isPromoting(String fen, ShortMove move) {
-  final chess = ch.Chess.fromFEN(fen);
-
+bool isPromoting(ch.Chess chess, ShortMove move) {
   final piece = chess.get(move.from);
 
   if (piece?.type != ch.PieceType.PAWN) {

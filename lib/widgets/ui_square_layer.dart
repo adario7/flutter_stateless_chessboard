@@ -57,7 +57,7 @@ class _UISquareLayerState extends State<UISquareLayer> {
         (_)  {
           final pc = square.piece.toNullable();
           if (pc?.type != PieceType.KING) return false; // don't calculate fromFEN when not needed
-          final chess = Chess.fromFEN(board.fen);
+          final chess = board.position;
           return pc?.color.value == chess.turn.index && chess.in_check;
         }
       )

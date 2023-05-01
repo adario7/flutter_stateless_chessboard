@@ -25,7 +25,7 @@ class Chessboard extends StatefulWidget {
     Color lastMoveHighlightColor = const Color.fromRGBO(50, 200, 50, .3),
     Color selectionHighlightColor = const Color.fromRGBO(50, 50, 200, .5),
     Color selectionDestColor = const Color.fromRGBO(50, 50, 200, .2),
-    Color checkColor = const Color.fromRGBO(230, 20, 20, .6),
+    Color checkColor = const Color.fromRGBO(230, 20, 20, .4),
     List<String> lastMove = const [],
   }) : board = Board(
     fen: fen,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stateless_chessboard/models/piece.dart';
 import 'package:flutter_stateless_chessboard/utils.dart' as utils;
+import 'package:chess/chess.dart' show Chess;
 import 'package:fpdart/fpdart.dart';
 
 import 'board_color.dart';
@@ -16,7 +17,7 @@ typedef BuildCustomPiece = Widget? Function(Square square);
 typedef Dests = Map<String, List<String>>;
 
 class Board {
-  final String fen;
+  final Chess position;
   final double size;
   final BoardColor orientation;
   final Color lightSquareColor;
@@ -34,7 +35,7 @@ class Board {
   final Dests dests;
 
   Board({
-    required this.fen,
+    required fen,
     required this.size,
     required this.orientation,
     required this.lightSquareColor,
@@ -50,7 +51,8 @@ class Board {
     required this.lastMoveHighlightColor,
     required this.checkColor,
     required this.lastMove,
-  })  : _onMove = onMove,
+  })  : position = Chess.fromFEN(fen),
+        _onMove = onMove,
         _onPromote = onPromote,
         buildPiece = Option.fromNullable(buildPiece),
         buildSquare = Option.fromNullable(buildSquare),
@@ -61,7 +63,7 @@ class Board {
   List<Square> get squares => utils.getSquares(this);
 
   Future<void> makeMove(ShortMove move) async {
-    if (utils.isPromoting(fen, move)) {
+    if (utils.isPromoting(position, move)) {
       final pieceType = await promotion;
       return pieceType.match(
         () => Future.error("Move cancelled"),
