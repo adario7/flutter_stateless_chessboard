@@ -10,7 +10,7 @@ A Stateless Chessboard Widget for Flutter. This package provides just the chessb
 
 Recording of `example/lib/main.dart`:
 
-<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/dev/preview.gif" alt="Chess Demo" width="400"/>
+<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/dev/example/preview.gif" alt="Chess Demo" width="400"/>
 
 ### Using the Chessboard
 
@@ -90,7 +90,7 @@ Chessboard(
 );
 ```
 
-<img src="https://github.com/varunpvp/flutter_chessboard/blob/main/promotion.gif" alt="Handling Promotion" width="400"/>
+<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/dev/example/promotion.gif" alt="Handling Promotion" width="400"/>
 
 ### Building Custom Pieces
 
@@ -120,7 +120,7 @@ Chessboard(
 
 If you don't return widget for a `PieceType` default widget will be rendered. This is how the above `Chessboard` will look.
 
-<img src="https://github.com/varunpvp/flutter_chessboard/blob/main/custom-pieces.png" alt="Custom Piece Build" width="400"/>
+<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/dev/example/custom-pieces.png" alt="Custom Piece Build" width="400"/>
 
 ## Parameters
 
