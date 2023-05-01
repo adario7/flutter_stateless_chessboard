@@ -1,6 +1,14 @@
+This repo is a fork of [varunpvp/flutter_chessboard](https://github.com/varunpvp/flutter_chessboard) which merges the currently open pull requests and provides new features and fixes, including fixes for the compilation erros. This fork is a drop-in replacement: it does does not change existing original APIs (but does provide new options).
+
+---
+
 # flutter_stateless_chessboard
 
 A Stateless Chessboard Widget for Flutter. This package provides just the chessboard. The game logic can be implemented using [chess](https://pub.dev/packages/chess) library. Check example/main.dart file, for implementing game logic.
+
+### Screenshot
+
+Recording of `example/lib/main.dart`:
 
 <img src="https://github.com/varunpvp/flutter_chessboard/blob/main/preview.gif" alt="Simple Chess App]" width="400"/>
 
@@ -10,7 +18,7 @@ To use Chessboard widget, [add flutter_stateless_chessboard as a dependency](htt
 
 ### Simple Example
 
-```
+```dart
 void main() {
   runApp(
     new MaterialApp(
@@ -43,7 +51,7 @@ void main() {
 
 For handling promotion. You can implement `onPromote` param. And return the `PieceType` you want to promote to. See below example.
 
-```
+```dart
 Chessboard(
   fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   size: 400,
@@ -88,7 +96,7 @@ Chessboard(
 
 By default, library uses [chess_vectors_flutter](https://pub.dev/packages/chess_vectors_flutter) for pieces. But you can build your own piece widget by implementing `buildPiece` param. See below example.
 
-```
+```dart
 Chessboard(
   fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   size: 400,
@@ -116,38 +124,12 @@ If you don't return widget for a `PieceType` default widget will be rendered. Th
 
 ## Parameters
 
-### fen:
-
-fen that should be show on the board (example `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`)
-
-### size:
-
-Size of the chessboard widget
-
-### onMove (optional):
-
-Called when a move is made on the board. Passing a ShortMove(from, to, promotion).
-
-### orientation (optional):
-
-Specify orientation of the chessboard.
-
-### lightSquareColor (optional):
-
-color of light square on chessboard.
-
-### darkSquareColor (optional):
-
-color of dart square on chessboard.
-
-### onPromote (optional):
-
-handle piece promotion
-
-### buildPiece (optional):
-
-handle building of custom piece
-
-### arrows (optional):
-
-Specify the arrows to draw, as well as their colors. Passing a List of `BoardArrow`. Where `BoardArrow` accepts `from` square as `String`, `to` square as `String` and `color` as `Color` from flutter material package.
+- fen: fen that should be show on the board (example `rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1`)
+- size: Size of the chessboard widget
+- onMove (optional): Called when a move is made on the board. Passing a ShortMove(from, to, promotion).
+- orientation (optional): Specify orientation of the chessboard.
+- lightSquareColor (optional): color of light square on chessboard.
+- darkSquareColor (optional): color of dart square on chessboard.
+- onPromote (optional): handle piece promotion
+- buildPiece (optional): handle building of custom piece
+- arrows (optional): Specify the arrows to draw, as well as their colors. Passing a List of `BoardArrow`. Where `BoardArrow` accepts `from` square as `String`, `to` square as `String` and `color` as `Color` from flutter material package.
