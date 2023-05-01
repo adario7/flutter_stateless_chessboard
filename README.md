@@ -10,7 +10,7 @@ A Stateless Chessboard Widget for Flutter. This package provides just the chessb
 
 Recording of `example/lib/main.dart`:
 
-<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/main/preview.gif" alt="Chess Demo" width="400"/>
+<img src="https://github.com/adario7/flutter_stateless_chessboard/blob/dev/preview.gif" alt="Chess Demo" width="400"/>
 
 ### Using the Chessboard
 
