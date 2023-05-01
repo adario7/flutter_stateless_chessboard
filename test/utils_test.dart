@@ -21,5 +21,13 @@ void main() {
         isFalse,
       );
     });
+
+    test("piece destinations are correct", () {
+      expect(
+        generateDestinations(Chess()).entries
+          .fold<int>(0, (x, entry) => x + entry.value.length),
+        equals(20)
+      );
+    });
   });
 }

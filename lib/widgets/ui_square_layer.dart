@@ -46,7 +46,7 @@ class _UISquareLayerState extends State<UISquareLayer> {
       )),
       clickMove.filterMap((click) => Option.fromPredicate(
         board.selectionDestColor,
-        (_) => (board.dests[click.square] ?? []).contains(square.name)
+        (_) => (board.dests[click.square] ?? {}).contains(square.name)
       )),
       Option.fromPredicate(
         board.lastMoveHighlightColor,

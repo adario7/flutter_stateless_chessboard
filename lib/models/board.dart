@@ -15,7 +15,7 @@ typedef Moved = void Function(ShortMove move);
 typedef BuildPiece = Widget? Function(Piece piece, double size);
 typedef BuildSquare = Widget? Function(BoardColor color, double size);
 typedef BuildCustomPiece = Widget? Function(Square square);
-typedef Dests = Map<String, List<String>>;
+typedef Dests = Map<String, Set<String>>;
 
 class Board {
   final Chess position;
@@ -37,7 +37,7 @@ class Board {
   final List<BoardArrow> arrows;
 
   Board({
-    required fen,
+    required this.position,
     required this.size,
     required this.orientation,
     required this.lightSquareColor,
@@ -54,8 +54,7 @@ class Board {
     required this.checkColor,
     required this.lastMove,
     required this.arrows,
-  })  : position = Chess.fromFEN(fen),
-        _onMove = onMove,
+  })  : _onMove = onMove,
         _onPromote = onPromote,
         buildPiece = Option.fromNullable(buildPiece),
         buildSquare = Option.fromNullable(buildSquare),

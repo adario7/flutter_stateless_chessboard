@@ -47,3 +47,12 @@ bool isPromoting(ch.Chess chess, ShortMove move) {
 noop1(arg1) {}
 
 Future<PieceType?> defaultPromoting() => Future.value(PieceType.QUEEN);
+
+Dests generateDestinations(ch.Chess chess) {
+  final moves = chess.moves({ 'asObjects': true }) as List<ch.Move>;
+  Dests res = {};
+  for (var mv in moves) {
+    (res[mv.fromAlgebraic] ??= {}).add(mv.toAlgebraic);
+  }
+  return res;
+}
